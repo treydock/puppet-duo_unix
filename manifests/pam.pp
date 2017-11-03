@@ -11,12 +11,13 @@ class duo_unix::pam inherits duo_unix {
   $aug_match    = "${aug_pam_path}/*/module[. = '${duo_unix::pam_module}']"
 
   file { '/etc/duo/pam_duo.conf':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0600',
-    content => template('duo_unix/duo.conf.erb'),
-    require => Package[$duo_unix::duo_package];
+    ensure    => present,
+    owner     => 'root',
+    group     => 'root',
+    mode      => '0600',
+    content   => template('duo_unix/duo.conf.erb'),
+    require   => Package[$duo_unix::duo_package],
+    show_diff => false,
   }
 
   if $duo_unix::manage_ssh {
